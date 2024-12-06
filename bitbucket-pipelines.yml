@@ -1,0 +1,35 @@
+image: php:8.3.9-cli
+
+pipelines:
+  pull-requests:
+    '**':
+      - step:
+          name: Install composer dependencies
+          caches:
+            - composer
+          artifacts:
+            - vendor/**
+          script:
+            - git config --global --add safe.directory /opt/atlassian/pipelines/agent/build
+            - composer install --prefer-dist --no-scripts --no-progress --optimize-autoloader
+      - parallel:
+          fail-fast: true
+          steps:
+            - step:
+                name: Run PHPStan - Static Analysis Tool
+                caches:
+                  - composer
+                script:
+                  - ./vendor/bin/phpstan --memory-limit=1G
+            - step:
+                name: Run PHP CS Fixer - Coding Standards Fixer
+                caches:
+                  - composer
+                script:
+                  - ./vendor/bin/php-cs-fixer fix --dry-run
+            - step:
+                name: Run phpunit tests
+                caches:
+                  - composer
+                script:
+                  - ./vendor/bin/phpunit

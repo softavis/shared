@@ -1,0 +1,3 @@
+ARG PHP_VERSION=8.3.9
+
+FROM php:${PHP_VERSION}-alpine
