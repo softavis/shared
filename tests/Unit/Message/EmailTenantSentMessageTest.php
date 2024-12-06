@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Softavis\Shared\Tests\Unit\Message;
 
-use Softavis\Shared\Message\EmailTenantSentMessage;
 use PHPUnit\Framework\TestCase;
+use Softavis\Shared\Message\EmailTenantSentMessage;
 
 final class EmailTenantSentMessageTest extends TestCase
 {
