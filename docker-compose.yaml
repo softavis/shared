@@ -1,0 +1,7 @@
+services:
+  php-cli:
+    image: ${IMAGE_PREFIX}${IMAGE_NAME}:${IMAGE_TAG}
+    build:
+      context: .
+    volumes:
+      - .:/app

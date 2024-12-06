@@ -1,4 +1,8 @@
-image: php:8.3.9-cli
+image:
+  name: rg.pl-waw.scw.cloud/softavis/shared:latest
+  username: $SCW_ACCESS_KEY
+  password: $SCW_SECRET_KEY
+  email: git@softavis.com
 
 pipelines:
   pull-requests:
@@ -10,7 +14,6 @@ pipelines:
           artifacts:
             - vendor/**
           script:
-            - apt-get update && apt-get install -y git zip unzip
             - git config --global --add safe.directory /opt/atlassian/pipelines/agent/build
             - composer install --prefer-dist --no-scripts --no-progress --optimize-autoloader
       - parallel:

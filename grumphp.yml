@@ -1,31 +1,21 @@
 grumphp:
-#  git_hook_variables:
-#    EXEC_GRUMPHP_COMMAND:
-#      - "docker"
-#      - "compose"
-#      - "-f"
-#      - "../softavis-env/docker-compose.yaml"
-#      - "-f"
-#      - "../softavis-env/docker-compose.override.yaml"
-#      - "exec"
-#      - "client-app"
+  git_hook_variables:
+    EXEC_GRUMPHP_COMMAND: ["docker", "compose", "run", "--rm", "php-cli"]
   tasks:
     clover_coverage:
       clover_file: clover.xml
       minimum_level: 95
-#    doctrine_orm:
-#      skip_mapping: true
     git_commit_message:
       enforce_single_lined_subject: true
       skip_on_merge_commit: true
       matchers:
         Must contain JIRA issue number: /SFN-\d+/
-#    git_branch_name:
-#      whitelist:
-#        - '/SFN-\d+/'
-#      blacklist:
-#        - "develop"
-#        - "master"
+    git_branch_name:
+      whitelist:
+        - '/SFN-\d+/'
+      blacklist:
+        - "develop"
+        - "master"
     infection:
       threads: 8
       min_covered_msi: 80
